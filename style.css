@@ -81,14 +81,140 @@ body {
   gap: 16px;
 }
 
+/* Welcome Screen - Logo AI di tengah */
+.welcome-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 500px;
+  animation: fadeInUp 0.8s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ai-logo {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.logo-circle {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #6c5ce7, #00b894);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: float 3s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.logo-emoji {
+  font-size: 50px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.logo-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  background: rgba(108, 92, 231, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 2s ease-out infinite;
+  z-index: 1;
+}
+
+@keyframes ripple {
+  0% {
+    width: 100px;
+    height: 100px;
+    opacity: 0.6;
+  }
+  100% {
+    width: 160px;
+    height: 160px;
+    opacity: 0;
+  }
+}
+
+.welcome-title {
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #fff, #a29bfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-desc {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+
+.feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.feature-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  backdrop-filter: blur(5px);
+}
+
+.api-warning {
+  background: rgba(255, 100, 100, 0.2);
+  border: 1px solid rgba(255, 100, 100, 0.5);
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: #ffaaaa;
+  font-size: 13px;
+  max-width: 90%;
+}
+
 /* Messages */
 .message {
   display: flex;
   gap: 12px;
-  animation: fadeIn 0.3s ease;
+  animation: fadeInMsg 0.3s ease;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInMsg {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
@@ -317,6 +443,11 @@ body {
   border-radius: 10px;
 }
 
+/* Hide welcome screen when chat starts */
+.chat-container:has(.message) .welcome-screen {
+  display: none;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   .message-content {
@@ -333,5 +464,18 @@ body {
   
   .logo h1 {
     font-size: 18px;
+  }
+  
+  .welcome-title {
+    font-size: 24px;
+  }
+  
+  .logo-circle {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .logo-emoji {
+    font-size: 40px;
   }
 }
