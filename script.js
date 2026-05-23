@@ -2,7 +2,7 @@
 // GANTI API KEY KAMU DI SINI!
 const API_KEY = 'AIzaSyDAHrWptP4cdFDzeuPQNZh7nskwP7hpw_8';  // ← GANTI PUNYA KAMU
 
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${API_KEY}`;
+const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
 // DOM Elements
 const chatContainer = document.getElementById('chatContainer');
 const messageInput = document.getElementById('messageInput');
