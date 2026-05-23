@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AI Chat - Upload File & Foto</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <span class="ai-icon">🧠</span>
+        <h1>AI Chat<span class="badge">Gemini</span></h1>
+      </div>
+      <button id="clearChatBtn" class="clear-btn" title="Hapus chat">🗑️</button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="chat-container" id="chatContainer">
+      <div class="message bot">
+        <div class="avatar">🤖</div>
+        <div class="message-content">
+          <div class="text">
+            Halo! Aku AI chatbot yang bisa:<br>
+            • 📝 Membaca file (PDF, TXT, DOC)<br>
+            • 📸 Menganalisa foto/gambar<br>
+            • 💬 Chat biasa<br><br>
+            Kirim pesan atau upload file/foto!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+      <div class="file-preview" id="filePreview" style="display: none;">
+        <div class="preview-info">
+          <span id="previewName"></span>
+          <button id="removeFileBtn">✕</button>
+        </div>
+      </div>
+      
+      <div class="input-wrapper">
+        <button id="attachBtn" class="attach-btn" title="Upload file/foto">📎</button>
+        <input type="text" id="messageInput" placeholder="Ketik pesan... atau upload file" autocomplete="off">
+        <button id="sendBtn" class="send-btn">➤</button>
+      </div>
+      
+      <input type="file" id="fileInput" accept=".txt,.pdf,.doc,.docx,image/*" style="display: none;">
+      
+      <div class="loading" id="loading" style="display: none;">
+        <div class="dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span>AI sedang berpikir...</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
