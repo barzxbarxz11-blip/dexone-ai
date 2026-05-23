@@ -1,6 +1,6 @@
 // ============ KONFIGURASI ============
 // GANTI API KEY KAMU DI SINI!
-const API_KEY = 'AIzaSyDAHrWptP4cdFDzeuPQNZh7nskwP7hpw_8';  // ← GANTI PUNYA KAMU
+const API_KEY = 'AIzaSyDwraKSpVwKFfTuZaTNlX8COYGYiAs7_tE';  // ← GANTI PUNYA KAMU
 
 const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
 // DOM Elements
@@ -168,7 +168,7 @@ async function sendToAI(userMessage, fileData = null) {
     console.error('Error calling AI:', error);
     
     if (error.message.includes('API key')) {
-      return '❌ **Error API Key**\n\nAPI Key tidak valid. Silakan:\n1. Dapatkan API Key gratis dari [Google AI Studio](https://aistudio.google.com/apikey)\n2. Ganti `AIzaSyDAHrWptP4cdFDzeuPQNZh7nskwP7hpw_8` di file script.js';
+      return '❌ **Error API Key**\n\nAPI Key tidak valid. Silakan:\n1. Dapatkan API Key gratis dari [Google AI Studio](https://aistudio.google.com/apikey)\n2. Ganti `AIzaSyDwraKSpVwKFfTuZaTNlX8COYGYiAs7_tE` di file script.js';
     }
     
     return `❌ **Error**: ${error.message}\n\nCoba periksa koneksi internet atau API Key.`;
@@ -266,7 +266,7 @@ clearChatBtn.addEventListener('click', clearChat);
 
 // Check API key on start
 function checkApiKey() {
-  if (API_KEY === 'AIzaSyDAHrWptP4cdFDzeuPQNZh7nskwP7hpw_8') {
+  if (API_KEY === 'AIzaSyDwraKSpVwKFfTuZaTNlX8COYGYiAs7_tE') {
     addMessageToUI('bot', '⚠️ **PENTING!** ⚠️\n\nKamu perlu mengganti `API_KEY` di file `script.js` dengan API Key dari Google Gemini.\n\n📝 Cara dapatkan:\n1. Buka https://aistudio.google.com/apikey\n2. Login dengan Google\n3. Klik "Create API Key"\n4. Copy dan ganti di kode');
   }
 }
