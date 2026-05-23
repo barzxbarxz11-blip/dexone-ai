@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>AI Chat - Upload File & Foto</title>
+  <title>AI Chat - Gemini Indonesia</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -20,16 +20,23 @@
 
     <!-- Chat Messages -->
     <div class="chat-container" id="chatContainer">
-      <div class="message bot">
-        <div class="avatar">🤖</div>
-        <div class="message-content">
-          <div class="text">
-            Halo! Aku AI chatbot yang bisa:<br>
-            • 📝 Membaca file (PDF, TXT, DOC)<br>
-            • 📸 Menganalisa foto/gambar<br>
-            • 💬 Chat biasa<br><br>
-            Kirim pesan atau upload file/foto!
+      <!-- Logo AI di tengah sebelum chat dimulai -->
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="ai-logo">
+          <div class="logo-circle">
+            <span class="logo-emoji">🤖</span>
           </div>
+          <div class="logo-pulse"></div>
+        </div>
+        <h2 class="welcome-title">AI Chat Assistant</h2>
+        <p class="welcome-desc">Saya siap membantu Anda!</p>
+        <div class="feature-list">
+          <div class="feature-item">📝 Membaca file PDF, TXT, DOC</div>
+          <div class="feature-item">📸 Menganalisa foto & gambar</div>
+          <div class="feature-item">💬 Chat pintar bahasa Indonesia</div>
+        </div>
+        <div class="api-warning" id="apiWarning" style="display: none;">
+          ⚠️ API Key belum diatur. Lihat petunjuk di console.
         </div>
       </div>
     </div>
