@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DexOne AI Chat</title>
+    <!-- Tailwind CSS untuk styling yang cepat dan bersih -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#121212] text-gray-200 font-sans flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR (Riwayat Chat & Chat Baru) -->
+    <aside id="sidebar" class="w-72 bg-[#1a1a1a] border-r border-gray-800 flex flex-col justify-between absolute md:relative z-20 h-full transition-transform duration-300 transform -translate-x-full md:translate-x-0">
+        <div class="p-4 flex flex-col h-full">
+            <!-- Tombol Chat Baru -->
+            <button id="new-chat-btn" class="w-full py-3 px-4 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg flex items-center justify-between border border-gray-700 transition mb-6">
+                <span><i class="fa-solid fa-plus mr-2"></i> Chat Baru</span>
+                <kbd class="text-xs text-gray-400 bg-zinc-900 px-1.5 py-0.5 rounded">Ctrl K</kbd>
+            </button>
+
+            <!-- Daftar Riwayat Chat -->
+            <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="chat-history-list">
+                <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider px-2 mb-2">Riwayat Percakapan</div>
+                <!-- Item riwayat akan muncul di sini secara dinamis -->
+            </div>
+        </div>
+        
+        <!-- Info User di bagian bawah Sidebar -->
+        <div class="p-4 border-t border-gray-800 bg-[#161616] flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-sm font-bold text-white">A</div>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium truncate">Adex User</p>
+                <p class="text-xs text-gray-500 truncate">Pro Plan</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- OVERLAY untuk mobile saat sidebar terbuka -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-10 hidden md:hidden"></div>
+
+    <!-- MAIN CHAT AREA -->
+    <main class="flex-1 flex flex-col h-full relative bg-[#121212]">
+        
+        <!-- TOP BAR (Header dengan tombol garis tiga) -->
+        <header class="h-14 border-b border-gray-800 flex items-center justify-between px-4 bg-[#121212]/80 backdrop-blur z-10">
+            <div class="flex items-center space-x-3">
+                <button id="toggle-sidebar" class="p-2 hover:bg-zinc-800 rounded-lg text-gray-400 hover:text-white transition">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <span class="font-semibold text-sm text-gray-300 hidden md:inline-block" id="current-chat-title">Chat Baru</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="text-xs bg-zinc-800 text-zinc-400 px-2 py-1 rounded border border-gray-700 font-mono">DexOne AI v2.5</span>
+            </div>
+        </header>
+
+        <!-- CONTAINER KONTEN UTAMA -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 flex flex-col" id="chat-container">
+            
+            <!-- TAMPILAN AWAL (Sebelum ada Chat) -->
+            <div id="welcome-screen" class="flex-1 flex flex-col items-center justify-center max-w-2xl mx-auto text-center my-auto space-y-8">
+                <!-- Logo AI -->
+                <div class="relative">
+                    <div class="w-20 h-20 bg-gradient-to-tr from-zinc-700 to-zinc-900 rounded-2xl flex items-center justify-center shadow-2xl border border-zinc-700">
+                        <i class="fa-solid fa-wand-magic-sparkles text-4xl text-white"></i>
+                    </div>
+                    <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full border-4 border-[#121212]"></div>
+                </div>
+
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Ada yang bisa saya bantu?</h1>
+                    <p class="text-gray-400 text-sm">Tanyakan apa saja, buat gambar AI berkualitas tinggi, atau analisis file Anda dalam satu tempat.</p>
+                </div>
+
+                <!-- Fitur-Fitur AI -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-xl text-left">
+                    <div class="p-4 bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/80 rounded-xl transition cursor-pointer group">
+                        <div class="flex items-center space-x-3 mb-1">
+                            <i class="fa-solid fa-image text-emerald-400 group-hover:scale-110 transition"></i>
+                            <h3 class="font-medium text-sm text-gray-200">Generasi Gambar AI</h3>
+                        </div>
+                        <p class="text-xs text-gray-500">Ketik perintah seperti "/image kucing astronot di bulan" untuk membuat gambar PNG/JPG.</p>
+                    </div>
+
+                    <div class="p-4 bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/80 rounded-xl transition cursor-pointer group">
+                        <div class="flex items-center space-x-3 mb-1">
+                            <i class="fa-solid fa-file-arrow-up text-blue-400 group-hover:scale-110 transition"></i>
+                            <h3 class="font-medium text-sm text-gray-200">Analisis File & Dokumen</h3>
+                        </div>
+                        <p class="text-xs text-gray-500">Unggah file teks, PDF, atau gambar untuk dirangkum atau diekstrak datanya.</p>
+                    </div>
+
+                    <div class="p-4 bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/80 rounded-xl transition cursor-pointer group">
+                        <div class="flex items-center space-x-3 mb-1">
+                            <i class="fa-solid fa-code text-purple-400 group-hover:scale-110 transition"></i>
+                            <h3 class="font-medium text-sm text-gray-200">Bantuan Coding</h3>
+                        </div>
+                        <p class="text-xs text-gray-500">Tulis, debug, atau optimalkan kode JavaScript, HTML, dan bahasa lainnya.</p>
+                    </div>
+
+                    <div class="p-4 bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/80 rounded-xl transition cursor-pointer group">
+                        <div class="flex items-center space-x-3 mb-1">
+                            <i class="fa-solid fa-clock-rotate-left text-amber-400 group-hover:scale-110 transition"></i>
+                            <h3 class="font-medium text-sm text-gray-200">Riwayat Tersimpan</h3>
+                        </div>
+                        <p class="text-xs text-gray-500">Semua percakapan tersimpan otomatis dan bisa diakses kembali kapan saja.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AREA PESAN CHAT (Sembunyikan default, muncul via JS) -->
+            <div id="chat-messages" class="w-full max-w-3xl mx-auto space-y-6 hidden flex-1 pb-24">
+                <!-- Pesan akan di-render di sini menggunakan JavaScript -->
+            </div>
+
+        </div>
+
+        <!-- INPUT BAR AREA (Tetap di bawah) -->
+        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#121212] via-[#121212] to-transparent pt-10 pb-4 px-4">
+            <div class="max-w-3xl mx-auto w-full">
+                <!-- Preview File/Gambar sebelum dikirim -->
+                <div id="attachment-preview" class="hidden mb-2 p-2 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center space-x-3 max-w-max">
+                    <!-- Diisi via JS -->
+                </div>
+
+                <!-- Form Input Utama -->
+                <form id="chat-form" class="bg-zinc-900 border border-zinc-800 rounded-2xl p-2 flex flex-col shadow-2xl focus-within:border-zinc-700 transition">
+                    <div class="flex items-end">
+                        <!-- Tombol Upload File -->
+                        <label for="file-upload" class="p-2.5 text-gray-400 hover:text-white rounded-xl hover:bg-zinc-800 cursor-pointer transition flex items-center justify-center mb-0.5">
+                            <i class="fa-solid fa-paperclip text-lg"></i>
+                            <input type="file" id="file-upload" class="hidden" accept="image/*, .pdf, .txt, .doc, .docx, .json">
+                        </label>
+
+                        <!-- Textarea Input (Auto-resize) -->
+                        <textarea id="chat-input" rows="1" placeholder="Tanya DexOne AI atau buat gambar dengan /image..." class="flex-1 bg-transparent border-0 outline-none resize-none mx-2 py-2.5 text-sm text-gray-200 placeholder-gray-500 max-h-36 focus:ring-0" required></textarea>
+
+                        <!-- Tombol Kirim -->
+                        <button type="submit" id="send-btn" class="p-2.5 bg-white text-black hover:bg-gray-200 rounded-xl transition flex items-center justify-center mb-0.5 disabled:opacity-50 disabled:hover:bg-white" disabled>
+                            <i class="fa-solid fa-arrow-up text-md"></i>
+                        </button>
+                    </div>
+                </form>
+                <p class="text-center text-[10px] text-gray-600 mt-2">DexOne AI dapat membuat kesalahan. Pertimbangkan untuk memeriksa informasi penting.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
